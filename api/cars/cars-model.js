@@ -1,8 +1,9 @@
 const db = require("../../data/db-config.js")
 
-const getAll = () => {
+const getAll = async () => {
   // DO YOUR MAGIC
-  return db('cars');
+  console.log('getAll');
+  return await db('cars');
 }
 
 const getById = id => {
@@ -10,14 +11,19 @@ const getById = id => {
   return db('cars').where({id});
 }
 
+const getByVin = async vin => {
+  return await db('cars').where({vin})
+}
+
 const create = async (car) => {
   // DO YOUR MAGIC
-  const createdCar = await db('cars').insert(car);
-  return {message : `New Car Created.`, car : getById(createdCar.id)}
+  return await db('cars').insert(car);
+  //return {message : `New Car Created.`, car : getById(createdCar.id)}
 }
 
 module.exports = {
   getAll,
   getById,
-  create
+  create,
+  getByVin
 }
